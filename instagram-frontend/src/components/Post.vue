@@ -5,14 +5,14 @@
         <div class="Post__user--avatar">
           <img :src="post.postedBy.image" :alt="post.postedBy.username">
         </div>
-      </div>
-      <div class="Post__user--username">
-        <span>{{ post.postedBy.username }}</span>
+        <div class="Post__user--username">
+          <span>{{post.postedBy.username}}</span>
+        </div>
       </div>
     </header>
     <div class="Post__image">
       <div class="Post__image--bg">
-        <img :src="post.text" :alt="post.image">
+        <img :alt="post.text" :src="post.image">
       </div>
     </div>
     <section class="Post__icon">

@@ -1,15 +1,4 @@
-// *** Beginning of mutation for sign in
-export const SIGNIN_USER_MUTATION = gql`
-  mutation SigninUserMutation($email: String!, $password: String!) {
-    signinUser(email: { email: $email, password: $password }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`;
-// *** End of mutation for sign in
+import gql from 'graphql-tag';
 
 // *** Beginning of query for posts
 export const ALL_POSTS_QUERY = gql`
@@ -17,7 +6,7 @@ export const ALL_POSTS_QUERY = gql`
     allPosts {
       id
       image
-      pastedBy {
+      postedBy {
         id
         username
         image
@@ -44,7 +33,27 @@ export const ALL_POSTS_QUERY = gql`
 `;
 // *** End of query for posts
 
-// *** Beginning of mutation for post
+// *** Beginning of mutation for create comment
+export const CREATE_COMMENT_MUTATION = gql`
+  mutation CreateCommentAndConnectUserPost(
+    $text: String!
+    $postId: ID!
+    $userId: ID!
+  ) {
+    createComment(text: $text, postId: $postId, postedById: $userId) {
+      id
+      text
+      postedBy {
+        username
+        image
+      }
+      createdAt
+    }
+  }
+`;
+// *** End of mutation for create comment
+
+// *** Beginning of Create like mutation
 export const CREATE_LIKE_MUTATION = gql`
   mutation CreateLikeAndConnectUserPost($postId: ID!, $userId: ID!) {
     createLike(postId: $postId, userId: $userId) {
@@ -58,7 +67,9 @@ export const CREATE_LIKE_MUTATION = gql`
     }
   }
 `;
+// *** End of Create like mutation
 
+// *** Beginning for Delete like mutation
 export const DELETE_LIKE_MUTATION = gql`
   mutation DeleteLikeFromPost($likeId: ID!) {
     deleteLike(id: $likeId) {
@@ -66,21 +77,17 @@ export const DELETE_LIKE_MUTATION = gql`
     }
   }
 `;
-// *** End of mutations for post
+// *** End of Delete like mutation
 
-// *** Beginning of mutation for create comment
-export const CREATE_COMMENT_MUTATION = gql`
-  mutation CreateCommentAndConnectUserPost($text: String!, $postId: ID!, $userId: ID!) {
-    createComment(text: $text, $postId, postedById: $userId) {
-      id
-      text
-      postedBy {
-        username
-        image
+// *** Beginning of mutation for sign in
+export const SIGNIN_USER_MUTATION = gql`
+  mutation SigninUserMutation($email: String!, $password: String!) {
+    signinUser(email: { email: $email, password: $password }) {
+      token
+      user {
+        id
       }
-      createdAt
     }
   }
 `;
-
-// *** End of mutation for create comment
+// *** End of mutation for sign in

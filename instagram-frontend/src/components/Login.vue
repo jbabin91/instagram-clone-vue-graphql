@@ -1,18 +1,18 @@
 <template>
   <section class="Login">
-    <main class="Login__form" role="main">
-      <h1 class="Login__form--logo">Instagram</h1>
-      <div class="Login__form--input">
-        <input class="Login__form--input-field" v-model="email" type="text" required />
-        <span class="floating-label">Email</span>
+    <main class="Login__form" role="main" >
+      <h1 class="Login__form--logo  LoggedOutWordmark">Instagram</h1>
+      <div class ="Login__form--input">
+        <input  class ="Login__form--input-field"  v-model="email" type="text" required/>
+        <span class="floating-label">Email</span> 
       </div>
-      <div class="Login__form--input">
-        <input class="Login__form-input-field" v-model="password" type="text" required />>
-        <span class="floating-label">Password</span>
+      <div class ="Login__form--input">
+        <input  class ="Login__form--input-field" v-model="password" type="password" required/>
+        <span class="floating-label">Password</span> 
       </div>
-      <div class="Login__form--button">
+      <div class ="Login__form--button">
         <span></span>
-        <button class="Login__form--button-1" @click="login">Login</button>
+        <button class="Login__form--button-1" @click="login()">Log in</button>
       </div>
     </main>
   </section>
@@ -21,6 +21,7 @@
 <script>
 import { SIGNIN_USER_MUTATION } from '../constants/graphql';
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants/settings';
+
 export default {
   name: 'Login',
   data() {
@@ -31,7 +32,7 @@ export default {
   },
   methods: {
     login() {
-      const { email, password } = this.data;
+      const { email, password } = this.$data;
       this.$apollo
         .mutate({
           mutation: SIGNIN_USER_MUTATION,
@@ -40,7 +41,7 @@ export default {
             password,
           },
         })
-        .then(results => {
+        .then(result => {
           const id = result.data.signinUser.user.id;
           const token = result.data.signinUser.token;
           this.saveUserData(id, token);
@@ -58,4 +59,3 @@ export default {
   },
 };
 </script>
-
